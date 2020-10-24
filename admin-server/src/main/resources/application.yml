@@ -1,0 +1,38 @@
+server:
+  port: 8761
+
+eureka:
+  server:
+    renewalPercentThreshold: 0.49
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  profiles:
+    active: developemnt
+  application:
+    name: admin-discovery-server
+  boot:
+    admin:
+      discovery:
+        enabled: true
+      context-path: /admin/
+
+# ACTUATOR INFO
+info:
+  app:
+    name: ${spring.application.name}
+    version: "0.0.1"
+    profile: ${spring.profiles.active}
+  serverInfo:
+    port: ${server.port}
