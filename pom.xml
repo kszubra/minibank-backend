@@ -7,6 +7,7 @@
         <module>admin-server</module>
         <module>config-server</module>
         <module>users-server</module>
+        <module>accounts-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
