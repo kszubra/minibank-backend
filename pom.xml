@@ -6,6 +6,7 @@
     <modules>
         <module>admin-server</module>
         <module>config-server</module>
+        <module>users-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -22,6 +23,7 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>

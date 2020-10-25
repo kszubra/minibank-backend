@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: users-server
+  profiles:
+    active: development
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# ACTUATOR INFO
+info:
+  app:
+    name: "Users server"
+    version: "0.0.1"
+    profile: ${spring.profiles.active}
+  serverInfo:
+    port: ${server.port}
+
+application:
+  datasource:
+    url: ${users.datasource.url}
+    username: ${users.datasource.username}
+    password: ${users.datasource.password}
+    driver-class-name: ${users.datasource.driver-class-name}
+
+eureka:
+  client: ${eureka-client}
+
+feign:
+  hystrix:
+    enabled: true
