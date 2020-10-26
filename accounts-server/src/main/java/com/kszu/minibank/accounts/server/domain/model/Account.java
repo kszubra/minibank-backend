@@ -54,4 +54,16 @@ public class Account {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Setter
+    private BigDecimal reservedFunds;
+
+    public void reserveFunds(BigDecimal value) {
+        this.availableFunds = this.availableFunds.subtract(value);
+        this.reservedFunds = this.reservedFunds.add(value);
+    }
+
+    public void chargeAccount(BigDecimal value) {
+        this.reservedFunds = this.reservedFunds.subtract(value);
+    }
 }

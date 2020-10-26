@@ -1,7 +1,9 @@
 package com.kszu.minibank.accounts.server.web;
 
 import com.kszu.minibank.accounts.server.api.request.AccountCreateRequest;
+import com.kszu.minibank.accounts.server.api.request.FundsReservationRequest;
 import com.kszu.minibank.accounts.server.api.response.AccountExistsResponse;
+import com.kszu.minibank.accounts.server.api.response.FundsReservationResponse;
 import com.kszu.minibank.accounts.server.api.response.UserAccountsResponse;
 import com.kszu.minibank.accounts.server.api.snapshot.AccountSnapshot;
 import com.kszu.minibank.accounts.server.service.interfaces.AccountApiService;
@@ -11,6 +13,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,5 +50,10 @@ public class AccountController {
     @GetMapping("/exists/{id}")
     public AccountExistsResponse getAccountExists(@PathVariable Long id) {
         return accountService.getAccountExists(id);
+    }
+
+    @PutMapping("/reserve-funds")
+    public FundsReservationResponse reserveFunds(@Valid FundsReservationRequest request) {
+        return accountService.reserveFunds(request);
     }
 }

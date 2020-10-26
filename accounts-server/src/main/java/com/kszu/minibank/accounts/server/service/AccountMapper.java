@@ -22,6 +22,7 @@ public class AccountMapper {
                 .type(request.getType())
                 .userId(request.getCustomerId())
                 .accountNumber(accountNumberGenerator.generateAccountNumber())
+                .reservedFunds(BigDecimal.ZERO)
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class AccountMapper {
                 .currency(account.getCurrency().toString())
                 .type(account.getType().toString())
                 .accountNumber(account.getAccountNumber())
+                .reservedFunds(account.getReservedFunds())
                 .build();
     }
 }

@@ -22,4 +22,6 @@ public class AccountSnapshot {
     private String type;
 
     private BigDecimal availableFunds;
+
+    private BigDecimal reservedFunds;
 }
