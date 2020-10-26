@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db_postgresql_transactions:
+    container_name: "transactions_db"
+    image: postgres
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_PASSWORD: transactionsPasswd
+      POSTGRES_USER: transactionsUser
+      POSTGRES_DB: transactionsDb

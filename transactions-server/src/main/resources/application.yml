@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: transactions-server
+  profiles:
+    active: development
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# ACTUATOR INFO
+info:
+  app:
+    name: "Transactions server"
+    version: "0.0.1"
+    profile: ${spring.profiles.active}
+  serverInfo:
+    port: ${server.port}
+
+eureka:
+  client: ${eureka-client}
+
+feign:
+  hystrix:
+    enabled: true
