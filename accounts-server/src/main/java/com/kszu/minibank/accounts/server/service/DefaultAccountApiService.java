@@ -1,6 +1,7 @@
 package com.kszu.minibank.accounts.server.service;
 
 import com.kszu.minibank.accounts.server.api.request.AccountCreateRequest;
+import com.kszu.minibank.accounts.server.api.response.AccountExistsResponse;
 import com.kszu.minibank.accounts.server.api.response.UserAccountsResponse;
 import com.kszu.minibank.accounts.server.api.snapshot.AccountSnapshot;
 import com.kszu.minibank.accounts.server.service.interfaces.AccountApiService;
@@ -28,5 +29,10 @@ public class DefaultAccountApiService implements AccountApiService {
     @Override
     public UserAccountsResponse getUserAccounts(Long userId) {
         return accountService.getUserAccounts(userId);
+    }
+
+    @Override
+    public AccountExistsResponse getAccountExists(Long accountId) {
+        return accountService.getAccountExists(accountId);
     }
 }

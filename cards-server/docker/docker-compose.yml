@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db_postgresql_cards:
+    container_name: "cards_db"
+    image: postgres
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_PASSWORD: cardsPasswd
+      POSTGRES_USER: cardsUser
+      POSTGRES_DB: cardsDb

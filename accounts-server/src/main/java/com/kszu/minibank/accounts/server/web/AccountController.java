@@ -1,6 +1,7 @@
 package com.kszu.minibank.accounts.server.web;
 
 import com.kszu.minibank.accounts.server.api.request.AccountCreateRequest;
+import com.kszu.minibank.accounts.server.api.response.AccountExistsResponse;
 import com.kszu.minibank.accounts.server.api.response.UserAccountsResponse;
 import com.kszu.minibank.accounts.server.api.snapshot.AccountSnapshot;
 import com.kszu.minibank.accounts.server.service.interfaces.AccountApiService;
@@ -27,6 +28,7 @@ public class AccountController {
     private final AccountApiService accountService;
 
     @PostMapping
+    //TODO get user id from token
     public Long createAccount(@RequestBody @Valid AccountCreateRequest request) {
         return accountService.createAccount(request);
     }
@@ -40,5 +42,10 @@ public class AccountController {
     @GetMapping("/{id}")
     public AccountSnapshot getBankAccount(@PathVariable Long id) {
         return accountService.getAccountSnapshot(id);
+    }
+
+    @GetMapping("/exists/{id}")
+    public AccountExistsResponse getAccountExists(@PathVariable Long id) {
+        return accountService.getAccountExists(id);
     }
 }

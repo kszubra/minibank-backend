@@ -1,6 +1,7 @@
 package com.kszu.minibank.accounts.server.service;
 
 import com.kszu.minibank.accounts.server.api.request.AccountCreateRequest;
+import com.kszu.minibank.accounts.server.api.response.AccountExistsResponse;
 import com.kszu.minibank.accounts.server.api.response.UserAccountsResponse;
 import com.kszu.minibank.accounts.server.api.snapshot.AccountSnapshot;
 import com.kszu.minibank.accounts.server.domain.model.Account;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +50,15 @@ public class RepositoryAccountService implements AccountService {
                 .collect(Collectors.toList());
 
         return new UserAccountsResponse(accounts);
+    }
+
+    @Override
+    public AccountExistsResponse getAccountExists(Long accountId) {
+        Account account = accountRepository.findById(accountId).orElse(null);
+        if(Objects.nonNull(account)) {
+            return AccountExistsResponse.exists(accountId, account.getUserId());
+        }
+        return AccountExistsResponse.notExists(accountId);
     }
 
     private Account getById(Long id) {
