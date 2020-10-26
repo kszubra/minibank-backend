@@ -10,6 +10,7 @@
         <module>accounts-server</module>
         <module>transactions-server</module>
         <module>cards-server</module>
+        <module>spring-gateway-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
