@@ -49,13 +49,11 @@ public class Account {
     private AccountType type;
 
     @NotNull
-    @Setter
     private BigDecimal availableFunds;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Setter
     private BigDecimal reservedFunds;
 
     public void reserveFunds(BigDecimal value) {
@@ -65,5 +63,9 @@ public class Account {
 
     public void chargeAccount(BigDecimal value) {
         this.reservedFunds = this.reservedFunds.subtract(value);
+    }
+
+    public void creditAccount(BigDecimal value) {
+        this.availableFunds = this.availableFunds.add(value);
     }
 }

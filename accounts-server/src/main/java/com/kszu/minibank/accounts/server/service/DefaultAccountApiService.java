@@ -2,8 +2,10 @@ package com.kszu.minibank.accounts.server.service;
 
 import com.kszu.minibank.accounts.server.api.request.AccountCreateRequest;
 import com.kszu.minibank.accounts.server.api.request.FundsReservationRequest;
+import com.kszu.minibank.accounts.server.api.request.TransactionPerformRequest;
 import com.kszu.minibank.accounts.server.api.response.AccountExistsResponse;
 import com.kszu.minibank.accounts.server.api.response.FundsReservationResponse;
+import com.kszu.minibank.accounts.server.api.response.TransactionResultResponse;
 import com.kszu.minibank.accounts.server.api.response.UserAccountsResponse;
 import com.kszu.minibank.accounts.server.api.snapshot.AccountSnapshot;
 import com.kszu.minibank.accounts.server.service.interfaces.AccountApiService;
@@ -41,5 +43,10 @@ public class DefaultAccountApiService implements AccountApiService {
     @Override
     public FundsReservationResponse reserveFunds(FundsReservationRequest request) {
         return accountService.reserveFunds(request);
+    }
+
+    @Override
+    public TransactionResultResponse performTransaction(TransactionPerformRequest request) {
+        return accountService.performTransaction(request);
     }
 }
