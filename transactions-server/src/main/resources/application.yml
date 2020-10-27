@@ -3,6 +3,18 @@ spring:
     name: transactions-server
   profiles:
     active: development
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        transaction-responses:
+          destination: transactions
+          contentType: application/json
+        transaction-requests:
+          destination: transactions
+          contentType: application/json
 
 management:
   endpoints:

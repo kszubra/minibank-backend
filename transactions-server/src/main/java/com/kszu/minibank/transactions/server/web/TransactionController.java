@@ -3,6 +3,8 @@ package com.kszu.minibank.transactions.server.web;
 import com.kszu.minibank.transactions.server.api.request.TransactionCreateRequest;
 import com.kszu.minibank.transactions.server.api.request.TransactionStatusUpdateRequest;
 import com.kszu.minibank.transactions.server.api.snapshot.TransactionSnapshot;
+import com.kszu.minibank.transactions.server.kafka.OutgoingTransactionEventMessage;
+import com.kszu.minibank.transactions.server.kafka.TransactionMessageProducer;
 import com.kszu.minibank.transactions.server.service.interfaces.TransactionApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -23,6 +26,7 @@ import javax.validation.Valid;
 public class TransactionController {
 
     private final TransactionApiService apiService;
+    private final TransactionMessageProducer messageProducer;
 
     @PostMapping
     public Long createTransaction(@RequestBody @Valid TransactionCreateRequest request) {
@@ -37,5 +41,11 @@ public class TransactionController {
     @PutMapping
     public void updateTransactionStatus(@RequestBody @Valid TransactionStatusUpdateRequest request) {
         apiService.updateTransactionStatus(request);
+    }
+
+    @GetMapping("/message")
+    public void sendMessage(@RequestParam String message) {
+        OutgoingTransactionEventMessage mess = new OutgoingTransactionEventMessage(message);
+        messageProducer.sendMessage(mess);
     }
 }
