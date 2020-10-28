@@ -1,0 +1,93 @@
+version: '3'
+services:
+  db_postgresql_users:
+    container_name: "users_db"
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: usersPasswd
+      POSTGRES_USER: usersUser
+      POSTGRES_DB: usersDb
+
+  db_postgresql_users_secondary:
+    container_name: "users_db_secondary"
+    image: postgres
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_PASSWORD: usersPasswd
+      POSTGRES_USER: usersUser
+      POSTGRES_DB: usersDbSecondary
+
+  db_postgresql_transactions:
+    container_name: "transactions_db"
+    image: postgres
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_PASSWORD: transactionsPasswd
+      POSTGRES_USER: transactionsUser
+      POSTGRES_DB: transactionsDb
+
+  db_postgresql_cards:
+    container_name: "cards_db"
+    image: postgres
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_PASSWORD: cardsPasswd
+      POSTGRES_USER: cardsUser
+      POSTGRES_DB: cardsDb
+
+  db_postgresql_accounts:
+    container_name: "accounts_db"
+    image: postgres
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_PASSWORD: accountsPasswd
+      POSTGRES_USER: accountsUser
+      POSTGRES_DB: accountsDb
+
+  admin-server:
+    build: ../admin-server
+    ports:
+      - 8761
+    restart: on-failure
+
+  config-server:
+    build: ../config-server
+    ports:
+      - 8888
+    restart: on-failure
+
+  accounts-server:
+    build: ../accounts-server
+    ports:
+      - 7777
+    restart: on-failure
+
+  cards-server:
+    build: ../cards-server
+    ports:
+      - 7780
+    restart: on-failure
+
+  spring-gateway-server:
+    build: ../spring-gateway-server
+    ports:
+      - 8051
+    restart: on-failure
+
+  transactions-server:
+    build: ../transactions-server
+    ports:
+      - 7779
+    restart: on-failure
+
+  users-server:
+    build: ../users-server
+    ports:
+      - 7778
+    restart: on-failure
