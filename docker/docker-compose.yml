@@ -6,125 +6,148 @@ networks:
     driver: bridge
 
 services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.5.0
+    container_name: zookeeper
+    networks:
+      - minibank
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  broker:
+    image: confluentinc/cp-kafka:5.5.0
+    container_name: broker
+    networks:
+      - minibank
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
   db_postgresql_users:
-    container_name: "users_db"
+    container_name: users_db
     networks:
       - minibank
     image: postgres
     ports:
-      - "5433:5433"
+      - 5433:5432
     environment:
       POSTGRES_PASSWORD: usersPasswd
       POSTGRES_USER: usersUser
       POSTGRES_DB: usersDb
 
   db_postgresql_users_secondary:
-    container_name: "users_db_secondary"
+    container_name: users_db_secondary
     networks:
       - minibank
     image: postgres
     ports:
-      - "5434:5434"
+      - 5434:5432
     environment:
       POSTGRES_PASSWORD: usersPasswd
       POSTGRES_USER: usersUser
       POSTGRES_DB: usersDbSecondary
 
   db_postgresql_transactions:
-    container_name: "transactions_db"
+    container_name: transactions_db
     networks:
       - minibank
     image: postgres
     ports:
-      - "5436:5436"
+      - 5436:5432
     environment:
       POSTGRES_PASSWORD: transactionsPasswd
       POSTGRES_USER: transactionsUser
       POSTGRES_DB: transactionsDb
 
   db_postgresql_cards:
-    container_name: "cards_db"
+    container_name: cards_db
     networks:
       - minibank
     image: postgres
     ports:
-      - "5437:5437"
+      - 5437:5432
     environment:
       POSTGRES_PASSWORD: cardsPasswd
       POSTGRES_USER: cardsUser
       POSTGRES_DB: cardsDb
 
   db_postgresql_accounts:
-    container_name: "accounts_db"
+    container_name: accounts_db
     networks:
       - minibank
     image: postgres
     ports:
-      - "5435:5435"
+      - 5435:5432
     environment:
       POSTGRES_PASSWORD: accountsPasswd
       POSTGRES_USER: accountsUser
       POSTGRES_DB: accountsDb
 
+
   admin-server:
-    container_name: "admin-server"
+    container_name: admin-server
     build: ../admin-server
     networks:
       - minibank
     ports:
-      - "8761:8761"
+      - 8761:8761
     restart: on-failure
 
   config-server:
-    container_name: "config-server"
+    container_name: config-server
     build: ../config-server
     networks:
       - minibank
     ports:
-      - "8888:8888"
+      - 8888:8888
     restart: on-failure
 
   accounts-server:
-    container_name: "accounts-server"
+    container_name: accounts-server
     build: ../accounts-server
     networks:
       - minibank
     ports:
-      - "7777:7777"
+      - 7777:7777
     restart: on-failure
 
   cards-server:
-    container_name: "cards-server"
+    container_name: cards-server
     build: ../cards-server
     networks:
       - minibank
     ports:
-      - "7780:7780"
+      - 7780:7780
     restart: on-failure
 
   spring-gateway-server:
-    container_name: "spring-gateway-server"
+    container_name: spring-gateway-server
     build: ../spring-gateway-server
     networks:
       - minibank
     ports:
-      - "8051:8051"
+      - 8051:8051
     restart: on-failure
 
   transactions-server:
-    container_name: "transactions-server"
+    container_name: transactions-server
     build: ../transactions-server
     networks:
       - minibank
     ports:
-      - "7779:7779"
+      - 7779:7779
     restart: on-failure
 
   users-server:
-    container_name: "users-server"
+    container_name: users-server
     build: ../users-server
     networks:
       - minibank
     ports:
-      - "7778:7778"
+      - 7778:7778
     restart: on-failure

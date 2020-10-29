@@ -23,6 +23,8 @@ management:
 eureka:
   client:
     fetch-registry: true
+    service-url:
+      defaultZone: ${DISCOVERY_URL:http://admin-server:8761}/eureka/
 
 # ACTUATOR INFO
 info:

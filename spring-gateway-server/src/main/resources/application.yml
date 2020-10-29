@@ -20,4 +20,7 @@ info:
     port: ${server.port}
 
 eureka:
-  client: ${eureka-client}
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: ${DISCOVERY_URL:http://admin-server:8761}/eureka/
